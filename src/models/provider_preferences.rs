@@ -39,7 +39,6 @@ pub enum Quantization {
 
 /// Strongly‑typed provider preferences.
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
 pub struct ProviderPreferences {
     /// Ordered list of provider names to prefer.
     #[serde(skip_serializing_if = "Option::is_none")]
