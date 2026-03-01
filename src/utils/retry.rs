@@ -19,6 +19,7 @@ pub mod operations {
     pub const GET_ACTIVITY: &str = "get_activity";
     pub const GET_PROVIDERS: &str = "get_providers";
     pub const GET_GENERATION: &str = "get_generation";
+    pub const LIST_ENDPOINTS: &str = "list_endpoints";
     pub const STRUCTURED_GENERATE: &str = "structured_generate";
     pub const CHAT_COMPLETION: &str = "chat_completion";
 }

@@ -1,6 +1,6 @@
 use crate::error::{Error, Result};
-use crate::types::models::{ModelsRequest, ModelsResponse};
-use crate::utils::retry::operations::LIST_MODELS;
+use crate::types::models::{ModelEndpointsResponse, ModelsRequest, ModelsResponse};
+use crate::utils::retry::operations::{LIST_ENDPOINTS, LIST_MODELS};
 use crate::utils::{retry::execute_with_retry_builder, retry::handle_response_json};
 use reqwest::Client;
 
@@ -51,5 +51,27 @@ impl ModelsApi {
 
         // Handle response with consistent error parsing
         handle_response_json::<ModelsResponse>(response, LIST_MODELS).await
+    }
+
+    /// Lists endpoints for a specific model.
+    pub async fn get_endpoints(&self, model_id: &str) -> Result<ModelEndpointsResponse> {
+        let url = self
+            .config
+            .base_url
+            .join(&format!("models/{}/endpoints", model_id))
+            .map_err(|e| Error::ApiError {
+                code: 400,
+                message: format!("Invalid URL for model endpoints: {e}"),
+                metadata: None,
+            })?;
+
+        let response = execute_with_retry_builder(&self.config.retry_config, LIST_ENDPOINTS, || {
+            self.client
+                .get(url.clone())
+                .headers((*self.config.headers).clone())
+        })
+        .await?;
+
+        handle_response_json::<ModelEndpointsResponse>(response, LIST_ENDPOINTS).await
     }
 }

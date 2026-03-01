@@ -63,6 +63,39 @@ impl PricingInfo {
     }
 }
 
+/// Statistics for latency or throughput.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Stats {
+    pub p50: f64,
+    pub p90: f64,
+    pub p99: f64,
+}
+
+/// Information about a specific provider endpoint for a model.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ModelEndpoint {
+    pub name: String,
+    pub provider_name: String,
+    pub pricing: PricingInfo,
+    pub context_length: Option<u32>,
+    pub latency_last_30m: Stats,
+    pub throughput_last_30m: Stats,
+    pub uptime_last_30m: f64,
+    pub supports_implicit_caching: bool,
+}
+
+/// Response containing endpoints for a specific model.
+#[derive(Debug, Deserialize)]
+pub struct ModelEndpointsResponse {
+    pub data: ModelEndpointsData,
+}
+
+/// Inner data for ModelEndpointsResponse.
+#[derive(Debug, Deserialize)]
+pub struct ModelEndpointsData {
+    pub endpoints: Vec<ModelEndpoint>,
+}
+
 /// Nested structure for top provider details within ModelInfo.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TopProviderInfo {
