@@ -67,6 +67,7 @@ impl PricingInfo {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Stats {
     pub p50: f64,
+    pub p75: f64,
     pub p90: f64,
     pub p99: f64,
 }
