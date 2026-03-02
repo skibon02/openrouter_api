@@ -116,7 +116,6 @@ impl ChatApi {
 
         // Set up backpressure control
         let semaphore = Arc::new(Semaphore::new(MAX_CONCURRENT_CHUNKS));
-        let chunk_count = Arc::new(AtomicUsize::new(0));
 
         // Build the URL for the chat completions endpoint.
         let url = match self.config.base_url.join("chat/completions") {
@@ -187,14 +186,6 @@ impl ChatApi {
                         "Line too long: {} bytes (max: {})",
                         line.len(),
                         MAX_LINE_LENGTH
-                    )))?;
-                }
-
-                // Safety check: Chunk count limit
-                let current_chunk = chunk_count.fetch_add(1, Ordering::Relaxed) + 1;
-                if current_chunk > MAX_TOTAL_CHUNKS {
-                      Err(Error::StreamingError(format!(
-                        "Too many chunks: {current_chunk} (max: {MAX_TOTAL_CHUNKS})"
                     )))?;
                 }
 
