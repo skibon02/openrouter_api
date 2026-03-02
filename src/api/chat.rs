@@ -24,7 +24,6 @@ use tokio_util::io::StreamReader;
 
 // Streaming safety limits to prevent memory exhaustion
 const MAX_LINE_LENGTH: usize = 64 * 1024; // 64KB per line
-const MAX_TOTAL_CHUNKS: usize = 10_000; // Maximum chunks per stream
 const MAX_CONCURRENT_CHUNKS: usize = 10; // Maximum chunks processing concurrently
 const CHUNK_PROCESSING_DELAY_MS: u64 = 10; // Delay between chunks for backpressure
 
