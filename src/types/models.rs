@@ -101,8 +101,8 @@ pub struct ModelEndpoint {
     pub status: Option<i32>,
     pub uptime_last_30m: Option<f64>,
     pub supports_implicit_caching: bool,
-    pub latency_last_30m: Stats,
-    pub throughput_last_30m: Stats,
+    pub latency_last_30m: Option<Stats>,
+    pub throughput_last_30m: Option<Stats>,
 }
 
 /// Response containing endpoints for a specific model.
