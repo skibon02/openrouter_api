@@ -40,6 +40,16 @@ pub struct PricingInfo {
     pub request: Option<Price>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub image: Option<Price>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub image_token: Option<Price>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub image_output: Option<Price>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub audio: Option<Price>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub audio_output: Option<Price>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub input_audio_cache: Option<Price>,
     // These fields appear to be consistently present in API response (e.g., as "0")
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub web_search: Option<Price>,
@@ -49,6 +59,8 @@ pub struct PricingInfo {
     pub input_cache_read: Option<Price>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub input_cache_write: Option<Price>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub discount: Option<f64>,
 }
 
 impl PricingInfo {
@@ -76,13 +88,21 @@ pub struct Stats {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ModelEndpoint {
     pub name: String,
+    pub model_id: String,
+    pub model_name: String,
     pub provider_name: String,
+    pub tag: Option<String>,
+    pub quantization: Option<Value>,
     pub pricing: PricingInfo,
     pub context_length: Option<u32>,
+    pub max_completion_tokens: Option<u32>,
+    pub max_prompt_tokens: Option<u32>,
+    pub supported_parameters: Option<Vec<String>>,
+    pub status: Option<String>,
+    pub uptime_last_30m: Option<f64>,
+    pub supports_implicit_caching: bool,
     pub latency_last_30m: Stats,
     pub throughput_last_30m: Stats,
-    pub uptime_last_30m: f64,
-    pub supports_implicit_caching: bool,
 }
 
 /// Response containing endpoints for a specific model.
