@@ -128,7 +128,7 @@ impl OpenRouterClient<Unconfigured> {
                 http_referer: None,
                 site_title: None,
                 user_id: None,
-                timeout: Duration::from_secs(30),
+                timeout: Duration::from_secs(120),
                 retry_config: RetryConfig::default(),
                 // Default to 10MB limit
                 max_response_bytes: 10 * 1024 * 1024,
