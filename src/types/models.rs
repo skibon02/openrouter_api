@@ -98,7 +98,7 @@ pub struct ModelEndpoint {
     pub max_completion_tokens: Option<u32>,
     pub max_prompt_tokens: Option<u32>,
     pub supported_parameters: Option<Vec<String>>,
-    pub status: Option<String>,
+    pub status: Option<i32>,
     pub uptime_last_30m: Option<f64>,
     pub supports_implicit_caching: bool,
     pub latency_last_30m: Stats,
@@ -111,9 +111,14 @@ pub struct ModelEndpointsResponse {
     pub data: ModelEndpointsData,
 }
 
-/// Inner data for ModelEndpointsResponse.
+/// Inner data for ModelEndpointsResponse - includes model info and endpoints.
 #[derive(Debug, Deserialize)]
 pub struct ModelEndpointsData {
+    pub id: String,
+    pub name: String,
+    pub created: i64,
+    pub description: Option<String>,
+    pub architecture: Option<ArchitectureDetails>,
     pub endpoints: Vec<ModelEndpoint>,
 }
 
