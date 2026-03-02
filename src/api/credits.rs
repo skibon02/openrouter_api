@@ -65,7 +65,7 @@ impl CreditsApi {
         let url = self
             .config
             .base_url
-            .join("api/v1/credits")
+            .join("credits")
             .map_err(|e| Error::ApiError {
                 code: 400,
                 message: format!("Invalid URL for credits endpoint: {e}"),
