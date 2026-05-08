@@ -284,7 +284,7 @@ pub struct ChatCompletionRequest {
     pub models: Option<Vec<String>>,
     /// (Optional) Plugins to enable (e.g. web search).
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub plugins: Option<Vec<String>>,
+    pub plugins: Option<serde_json::Value>,
     /// (Optional) Message transforms.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub transforms: Option<Vec<String>>,
