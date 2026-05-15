@@ -278,6 +278,7 @@ impl ChatApi {
             parallel_tool_calls: None,
             verbosity: None,
             plugins: None,
+            service_tier: None,
         };
 
         let response = self.chat_completion(request).await?;
