@@ -284,7 +284,7 @@ pub struct ChatCompletionRequest {
     pub models: Option<Vec<String>>,
     /// (Optional) Plugins to enable (e.g. web search).
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub plugins: Option<serde_json::Value>,
+    pub plugins: Option<Vec<crate::models::plugins::PluginConfig>>,
     /// (Optional) Message transforms.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub transforms: Option<Vec<String>>,
@@ -349,6 +349,9 @@ pub struct ChatCompletionRequest {
     /// (Optional) Response verbosity level.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub verbosity: Option<VerbosityLevel>,
+    /// (Optional) Service tier for Google models (flex, priority).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub service_tier: Option<String>,
 }
 
 /// A choice returned by the chat API.
