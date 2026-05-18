@@ -352,6 +352,23 @@ pub struct ChatCompletionRequest {
     /// (Optional) Service tier for Google models (flex, priority).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_tier: Option<String>,
+    /// (Optional) Reasoning configuration for reasoning models.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub reasoning: Option<ReasoningConfig>,
+    /// (Optional) Extra body fields (e.g. DeepSeek's {"thinking": {"type": "enabled"}}).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub extra: Option<serde_json::Value>,
+}
+
+/// Configuration options for reasoning models.
+#[derive(Debug, Serialize, Clone, Default)]
+pub struct ReasoningConfig {
+    /// Constrains effort on reasoning (xhigh, high, medium, low, minimal, none).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub effort: Option<String>,
+    /// Summary mode (auto, concise, detailed).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub summary: Option<String>,
 }
 
 /// A choice returned by the chat API.
