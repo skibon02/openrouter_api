@@ -72,6 +72,9 @@ mod tests {
             parallel_tool_calls: None,
             verbosity: None,
             plugins: None,
+            service_tier: None,
+            reasoning: None,
+            extra: None,
         };
 
         // For this integration test we are simulating a response.
@@ -347,6 +350,9 @@ mod tests {
             parallel_tool_calls: None,
             verbosity: None,
             plugins: None,
+            service_tier: None,
+            reasoning: None,
+            extra: None,
         };
 
         // Serialize to JSON to verify the structure

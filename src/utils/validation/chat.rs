@@ -468,6 +468,9 @@ mod tests {
             parallel_tool_calls: None,
             verbosity: None,
             plugins: None,
+            service_tier: None,
+            reasoning: None,
+            extra: None,
         }
     }
 

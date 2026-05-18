@@ -83,6 +83,8 @@ impl StructuredApi {
             verbosity: None,
             plugins: None,
             service_tier: None,
+            reasoning: None,
+            extra: None,
         };
 
         // Build the complete URL for the chat completions endpoint.

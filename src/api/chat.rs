@@ -279,6 +279,8 @@ impl ChatApi {
             verbosity: None,
             plugins: None,
             service_tier: None,
+            reasoning: None,
+            extra: None,
         };
 
         let response = self.chat_completion(request).await?;

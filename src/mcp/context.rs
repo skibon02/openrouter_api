@@ -84,6 +84,7 @@ impl ContextProcessor for SummarizingProcessor {
                 provider: None,
                 models: None,
                 transforms: None,
+                ..Default::default()
             };
             
             // Get the summary
@@ -174,6 +175,7 @@ impl ContextProcessor for SummarizingProcessor {
                 provider: None,
                 models: None,
                 transforms: None,
+                ..Default::default()
             };
             
             // Get the summary
@@ -234,6 +236,7 @@ impl ContextProcessor for SummarizingProcessor {
                 provider: None,
                 models: None,
                 transforms: None,
+                ..Default::default()
             };
             
             let response = chat_api.chat_completion(request)

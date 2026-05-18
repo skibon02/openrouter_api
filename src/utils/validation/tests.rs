@@ -80,6 +80,7 @@ mod validation_tests {
             parallel_tool_calls: None,
             verbosity: None,
             plugins: None,
+            ..Default::default()
         };
 
         assert!(validate_chat_request(&request).is_ok());
@@ -162,6 +163,7 @@ mod validation_tests {
                 parallel_tool_calls: None,
                 verbosity: None,
                 plugins: None,
+                ..Default::default()
             };
             let _ = validate_chat_request(&request);
         }
