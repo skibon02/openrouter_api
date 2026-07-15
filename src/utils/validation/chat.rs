@@ -295,7 +295,7 @@ fn validate_tools(tools: &[Tool]) -> Result<()> {
 
     for (i, tool) in tools.iter().enumerate() {
         match tool {
-            Tool::Function { function } => {
+            Tool::Function { function, .. } => {
                 if function.name.trim().is_empty() {
                     return Err(Error::ConfigError(format!(
                         "Function name in tool[{i}] cannot be empty"
@@ -391,7 +391,7 @@ pub fn estimate_request_tokens(request: &ChatCompletionRequest) -> u32 {
             .iter()
             .map(|tool| {
                 match tool {
-                    Tool::Function { function } => {
+                    Tool::Function { function, .. } => {
                         // Function name + description + parameters
                         let name_tokens = function.name.len() as u32 / 4;
                         let desc_tokens = function
