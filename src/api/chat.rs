@@ -281,6 +281,7 @@ impl ChatApi {
             service_tier: None,
             reasoning: None,
             extra: None,
+            cache_control: None,
         };
 
         let response = self.chat_completion(request).await?;

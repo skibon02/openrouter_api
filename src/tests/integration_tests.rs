@@ -75,6 +75,7 @@ mod tests {
             service_tier: None,
             reasoning: None,
             extra: None,
+            cache_control: None,
         };
 
         // For this integration test we are simulating a response.
@@ -353,6 +354,7 @@ mod tests {
             service_tier: None,
             reasoning: None,
             extra: None,
+            cache_control: None,
         };
 
         // Serialize to JSON to verify the structure

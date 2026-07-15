@@ -471,6 +471,7 @@ mod tests {
             service_tier: None,
             reasoning: None,
             extra: None,
+            cache_control: None,
         }
     }
 
