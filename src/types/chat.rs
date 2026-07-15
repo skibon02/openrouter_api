@@ -101,6 +101,8 @@ pub struct TextContent {
     #[serde(rename = "type")]
     pub content_type: ContentType,
     pub text: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cache_control: Option<CacheControl>,
 }
 
 /// Image URL content for multimodal messages.
@@ -358,6 +360,18 @@ pub struct ChatCompletionRequest {
     /// (Optional) Extra body fields (e.g. DeepSeek's {"thinking": {"type": "enabled"}}).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub extra: Option<serde_json::Value>,
+    /// (Optional) Prompt caching configuration (Anthropic automatic caching, etc.).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cache_control: Option<CacheControl>,
+}
+
+/// Prompt caching configuration for providers that support it.
+#[derive(Debug, Serialize, Deserialize, Clone, Default, PartialEq, Eq)]
+pub struct CacheControl {
+    #[serde(rename = "type")]
+    pub control_type: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ttl: Option<String>,
 }
 
 /// Configuration options for reasoning models.

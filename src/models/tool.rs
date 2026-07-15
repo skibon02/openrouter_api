@@ -43,6 +43,8 @@ pub enum Tool {
     Function {
         #[serde(rename = "function")]
         function: FunctionDescription,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        cache_control: Option<crate::types::chat::CacheControl>,
     },
 }
 
