@@ -87,7 +87,7 @@ impl Error {
         if let Ok(api_error) = serde_json::from_str::<ApiErrorDetails>(text) {
             return Ok(Error::ApiError {
                 code: status,
-                message: create_safe_error_message(text, "API error occurred"),
+                message: extract_error_message(text),
                 metadata: Some(serde_json::json!({
                     "original_response": api_error,
                     "response_text_length": text.len(),
@@ -106,7 +106,7 @@ impl Error {
 
         Ok(Error::ApiError {
             code: status,
-            message: create_safe_error_message(text, "API error occurred"),
+            message: extract_error_message(text),
             metadata: Some(serde_json::json!({
                 "response_text_length": text.len(),
                 "timestamp": chrono::Utc::now().to_rfc3339(),
@@ -148,6 +148,24 @@ impl Error {
 
         Ok(error)
     }
+}
+
+/// Extract a human-readable error message from an OpenRouter error response.
+///
+/// OpenRouter returns `{"error":{"message":"...","code":400,"metadata":{...}}}`.
+/// When that shape is present we surface the inner `message` (redacted); otherwise
+/// we fall back to the redacted raw body.
+fn extract_error_message(text: &str) -> String {
+    if let Ok(value) = serde_json::from_str::<Value>(text) {
+        if let Some(message) = value
+            .get("error")
+            .and_then(|e| e.get("message"))
+            .and_then(|m| m.as_str())
+        {
+            return create_safe_error_message(message, "API error occurred");
+        }
+    }
+    create_safe_error_message(text, "API error occurred")
 }
 
 #[cfg(test)]

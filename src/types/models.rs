@@ -130,6 +130,30 @@ pub struct TopProviderInfo {
     pub is_moderated: bool,
 }
 
+/// Reasoning capabilities advertised by a model.
+///
+/// OpenRouter exposes this per model so clients can build reasoning-effort
+/// selectors and avoid sending values the model rejects (e.g. `effort: "none"`
+/// on models where reasoning is `mandatory`).
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+pub struct ModelReasoningInfo {
+    /// When true, reasoning cannot be disabled and `effort: "none"` is rejected.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub mandatory: Option<bool>,
+    /// Default on/off state when the request does not set `reasoning.enabled`.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub default_enabled: Option<bool>,
+    /// Effort level to pre-select when reasoning is enabled.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub default_effort: Option<String>,
+    /// Accepted effort levels, in descending order. `None` means all are accepted.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub supported_efforts: Option<Vec<String>>,
+    /// When true, the model accepts `reasoning.max_tokens` instead of effort.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub supports_max_tokens: Option<bool>,
+}
+
 /// Information about a specific model, updated to match the API response.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ModelInfo {
@@ -149,6 +173,8 @@ pub struct ModelInfo {
     pub per_request_limits: Option<Value>, // Can be null, structure can vary
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub supported_parameters: Option<Vec<String>>, // Can be null or a list
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub reasoning: Option<ModelReasoningInfo>,
 }
 
 /// Request to list available models.
